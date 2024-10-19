@@ -1,0 +1,3 @@
+math / rims score
+	+ selection: 0.595 (2974/5000)
+total: 0.595 (2974/5000)

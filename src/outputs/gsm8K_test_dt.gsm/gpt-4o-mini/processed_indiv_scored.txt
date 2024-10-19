@@ -1,0 +1,60 @@
+file      = outputs/gsm8K_test_dt.gsm/gpt-4o-mini/processed_indiv.jsonl
+dataset   = gsm
+=======individual performance=======
+cot:	1144 / 1319 (86.7%)
+
+
+pal:	1193 / 1319 (90.4%)
+
+
+p2c:	1213 / 1319 (92.0%)
+
+
+=====================================
+
+
+========distinctive behaviors========
+{'all': 1061, 'cotpal-p2c': 28, 'palp2c-cot': 94, 'p2ccot-pal': 37, 'cot_only': 18, 'pal_only': 10, 'p2c_only': 21}
+=====================================
+
+
+file      = outputs/gsm8K_test_dt.gsm/gpt-4o-mini/processed_indiv.jsonl
+dataset   = gsm
+=======individual performance=======
+cot:	1144 / 1319 (86.7%)
+
+
+pal:	1193 / 1319 (90.4%)
+
+
+p2c:	1213 / 1319 (92.0%)
+
+
+=====================================
+
+
+========distinctive behaviors========
+{'all': 1061, 'cotpal-p2c': 28, 'palp2c-cot': 94, 'p2ccot-pal': 37, 'cot_only': 18, 'pal_only': 10, 'p2c_only': 21}
+=====================================
+
+
+file      = outputs/gsm8K_test_dt.gsm/gpt-4o-mini/processed_indiv.jsonl
+dataset   = gsm
+=======individual performance=======
+cot:	1144 / 1319 (86.7%)
+
+
+pal:	1193 / 1319 (90.4%)
+
+
+p2c:	1213 / 1319 (92.0%)
+
+
+=====================================
+
+
+========distinctive behaviors========
+{'all': 1061, 'cotpal-p2c': 28, 'palp2c-cot': 94, 'p2ccot-pal': 37, 'cot_only': 18, 'pal_only': 10, 'p2c_only': 21}
+=====================================
+
+
