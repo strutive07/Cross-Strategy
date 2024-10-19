@@ -11,7 +11,7 @@ score file: [link](https://github.com/strutive07/Cross-Strategy/blob/main/src/sc
 # please modify OPENAI_API_BASE, OPENAI_API_KEY in this script and run script.
 
 cd src
-sh scripts run_all_scripts.sh
+OPENAI_API_BASE=... OPENAI_API_KEY=.... sh scripts run_all_scripts.sh
 ```
 
 
