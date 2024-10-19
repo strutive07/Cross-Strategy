@@ -1,6 +1,6 @@
-# Rims
+# Cross-Strategy
 ## Scores
-score file: [link](https://github.com/strutive07/rims/blob/main/src/scores.md)
+score file: [link](https://github.com/strutive07/Cross-Strategy/blob/main/src/scores.md)
 
 ## How to run new model experiment
 
@@ -68,22 +68,22 @@ We have 3 individual query strategy, so we override base query object and implem
 - pal: https://github.com/strutive07/Cross-Strategy/blob/main/src/query_obj/pal.py
 
 
-simple greedy and rims's LLM call also made with base_query object.
+simple greedy and Cross-Strategy's LLM call also made with base_query object.
 
 - simple_greedy: https://github.com/strutive07/Cross-Strategy/blob/main/src/query_obj/simple_greedy.py
-- rims: https://github.com/strutive07/rims/blob/main/src/query_obj/rims.py
+- Cross-Strategy: https://github.com/strutive07/Cross-Strategy/blob/main/src/query_obj/Cross-Strategy.py
 
 
-Raw output sample: https://github.com/strutive07/rims/blob/main/sample_indiv_output.json
+Raw output sample: https://github.com/strutive07/Cross-Strategy/blob/main/sample_indiv_output.json
 
 
 ### Step 1. post process llm raw output. `scripts/1_run_postprocess_indiv.sh`
 
 After call llm, we have to parse output from cot, and run generated code for pal and p2c.
 
-https://github.com/strutive07/rims/blob/main/src/postprocess_rawouts.py#L63-L81
+https://github.com/strutive07/Cross-Strategy/blob/main/src/postprocess_rawouts.py#L63-L81
 
-In this code, we compare cot, pal, p2c's output. If we fine major answer (two or more methods gave the same answer), we do not run simple greedy and rims in step 3.
+In this code, we compare cot, pal, p2c's output. If we fine major answer (two or more methods gave the same answer), we do not run simple greedy and Cross-Strategy in step 3.
 
 Output sample
 
@@ -125,15 +125,15 @@ Output sample
 You can see the score `outputs/*/*/processed_indiv_scored.md`
 
 
-### Step 3. run simple greedy, rims `scripts/3_*.sh`
+### Step 3. run simple greedy, Cross-Strategy `scripts/3_*.sh`
 
-In step 1, we computed data instances that do not have a major answer. We use simple greedy and rims to perform model selection and reflection.
+In step 1, we computed data instances that do not have a major answer. We use simple greedy and Cross-Strategy to perform model selection and reflection.
 
 Prompt and output samples
 
 - Simple greedy
 
-Prompt template: https://github.com/strutive07/rims/blob/main/src/query_obj/simple_greedy_prompts.yaml
+Prompt template: https://github.com/strutive07/Cross-Strategy/blob/main/src/query_obj/simple_greedy_prompts.yaml
 
 ```json
 {
@@ -184,13 +184,13 @@ Prompt template: https://github.com/strutive07/rims/blob/main/src/query_obj/simp
 }
 ```
 
-- rims
+- Cross-Strategy
 
-Prompt template: https://github.com/strutive07/rims/tree/main/src/query_obj/rims_prompts
+Prompt template: https://github.com/strutive07/Cross-Strategy/tree/main/src/query_obj/Cross-Strategy_prompts
 
 ```json
 {
-    "RimsQueryObject": {
+    "Cross-StrategyQueryObject": {
         "contents": [
             "I will attempt to solve the problem using the Chain-of-Thought (cot) method.\n\n`Method`: Chain-of-Thought (cot)\n`Attempt 1`:\nLet's think step by step.\n1. Josh buys a house for $80,000 and then puts in $50,000 in repairs.\n2. The value of the house increases by 150%.\n3. To find the new value of the house, we need to calculate 150% of the original value.\n4. 150% of $80,000 is $120,000.\n5. The total amount spent by Josh is $80,000 (initial cost) + $50,000 (repairs) = $130,000.\n6. The profit is the difference between the new value and the total amount spent.\n7. Profit = New value - Total amount spent\n8. Profit = $120,000 - $130,000 = -$10,000\n\n`Answer 1`: -10,000\n`Evaluation`: Wrong\n`Mistakes`: The mistake is in the calculation of the new value of the house. The value of the house increases by 150%, but the calculation is incorrect. The correct calculation is 150% of $80,000 is $120,000, but the new value is not $120,000, it's the original value plus the increase, which is $80,000 + $80,000 = $160,000.\n`Hint for a better Method choice`: Using a program-aided approach can help avoid human errors in arithmetic and provide a precise result.\n`Workaround Method`: Program-aided Language Modeling (pal)\n`Attempt 2`:\ndef solution():\n    initial_cost = 80000\n    repairs = 50000\n    increase_percentage = 150\n    new_value = initial_cost * (1 + increase_percentage/100)\n\n    total_amount_spent = initial_cost + repairs\n    profit = new_value - total_amount_spent\n\n    return profit\n\nprint(solution())\n\n`Answer 2`: 30000"
         ],
@@ -201,7 +201,7 @@ Prompt template: https://github.com/strutive07/rims/tree/main/src/query_obj/rims
             }
         ],
         "meta": {
-            "method_obj": "RimsQueryObject",
+            "method_obj": "Cross-StrategyQueryObject",
             "dataset_type": "not given",
             "query_kwargs": {
                 "backbone": "meta-llama/Meta-Llama-3-8B-Instruct",
@@ -222,7 +222,7 @@ Prompt template: https://github.com/strutive07/rims/tree/main/src/query_obj/rims
 ```
 
 
-### Step 4. Post prcessing simple greedy and rims `scripts/4_*.sh`
+### Step 4. Post prcessing simple greedy and Cross-Strategy `scripts/4_*.sh`
 
 Parse selected strategy and answer.
 
@@ -257,10 +257,10 @@ sample output
     ],
     "dataset_type": "gsm",
     "gt_answer": 70000,
-    "rims_selected": "cot",
-    "rims_solution": "Josh bought the house for $80,000 and spent $50,000 on repairs, so the total cost was $80,000 + $50,000 = $130,000.\n\nThe value of the house increased by 150%, so the new value of the house is $130,000 + (150% of $130,000) = $130,000 + $195,000 = $325,000.\n\nThe profit Josh made is the new value of the house minus the total cost, which is $325,000 - $130,000 = $205,000.",
-    "rims_answer": 205000,
-    "rims_summary": {
+    "Cross-Strategy_selected": "cot",
+    "Cross-Strategy_solution": "Josh bought the house for $80,000 and spent $50,000 on repairs, so the total cost was $80,000 + $50,000 = $130,000.\n\nThe value of the house increased by 150%, so the new value of the house is $130,000 + (150% of $130,000) = $130,000 + $195,000 = $325,000.\n\nThe profit Josh made is the new value of the house minus the total cost, which is $325,000 - $130,000 = $205,000.",
+    "Cross-Strategy_answer": 205000,
+    "Cross-Strategy_summary": {
         "good_solution": "Josh bought the house for $80,000 and spent $50,000 on repairs, so the total cost was $80,000 + $50,000 = $130,000.\n\nThe value of the house increased by 150%, so the new value of the house is $130,000 + (150% of $130,000) = $130,000 + $195,000 = $325,000.\n\nThe profit Josh made is the new value of the house minus the total cost, which is $325,000 - $130,000 = $205,000.",
         "good_ans": 205000,
         "good_method": "cot",
