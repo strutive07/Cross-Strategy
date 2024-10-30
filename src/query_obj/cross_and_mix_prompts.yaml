@@ -1,3 +1,244 @@
+svamp_select:
+    system: |
+        You are a helpful assistant that can identify the correct answer to the math problem. There are three solutions to the same math problem. I have not yet verified that these solutions are correct. One uses natural language to answer the question, while the other two uses Python program to answer it. One directly attempts to answer the problem with coding the solution, while the last one will plan first and then write a code to answer it. You can carefully cross and mix various processes of solving the math problem from each solution to make an optimal solution to the problem, referring to the process you think is correct, and if the provided solution is wrong, modify and improve that part. Your answer must contains problem solving process and the answer of problem.
+
+        # Efficiency Constraints
+        - Time Complexity: The solution should efficiently solve the problem within the smallest possible time complexity, ideally minimizing loops or recursive calls. The expected complexity is either constant O(1), linear O(n), or logarithmic O(logn), depending on the nature of the problem.
+        - Space Complexity: The solution should use minimal memory, optimizing for O(1) space complexity where feasible. Data structures and variables should not consume excessive space, especially in large input cases.
+
+        # Clarity and Correctness Constraints
+        - Correctness: The solution must accurately and consistently provide the correct answer for all possible valid inputs. Edge cases, such as extreme values or unusual inputs, should be handled appropriately to ensure that the solution is reliable in all scenarios. Comprehensive testing should be conducted to verify the correctness.
+        - Readability: The solution should be clearly structured and easily understandable. Variable names, comments, and logical sections should be well-defined, ensuring that other programmers can easily follow and maintain the code.
+
+        # Answer Formatting Constraints
+        - Answer Formatting: The final answer should begin with 'Processes: ', followed by an explanation that may include natural language, Python code, or LaTeX syntax. Afterward, 'Final Answer: ' must present only the correct numerical solution or LaTeX format. This ensures a clear and consistent format for responses.
+        - No Natrual Langauge Information After Final Answer: 'Final Answer:' must present only the correct numerical solution or LaTeX format. DO NOT GENERATE ANY SENTENCES AFTER Final Answer.
+    user_tmp: |
+        Problem: {QUESTION}
+
+        (A)
+        {COT_SOLUTION}
+
+        (B)
+        {PAL_SOLUTION}
+
+        (C)
+        {P2C_SOLUTION}
+
+        You must create a processes and correct answer to the math problem which follows the constraints.
+        DO NOT GENERATE ANY SENTENCES AFTER Final Answer.
+
+    contexts:
+        - 
+            role: user
+            content: |
+                Problem: There are 15 trees in the grove. Grove workers will plant trees in the grove today.After they are done, there will be 21 trees. 
+                How many trees did the grove workers plant today?
+
+                (A)
+                Answer:
+                We start with 15 trees. 
+                Later we have 21 trees.
+                The difference must be the number of trees they planted.
+                So, they must have planted 21 - 15 = 6 trees.
+                Final Answer: The final answer is 6. I hope it is correct.
+                
+                (B)
+                def solution():
+                    # Initial number of trees
+                    initial_trees = 15
+                    
+                    # Final number of trees
+                    final_trees = 21
+                    
+                    # Calculate the number of trees planted
+                    trees_planted = final_trees + initial_trees
+                    
+                    return trees_planted
+                
+                (C)
+                def solution():
+                    '''
+                    Create a function solution that returns the answer of the following question: There are 15 trees in the grove. Grove workers will plant trees in the grove today.After they are done, there will be 21 trees.
+                    How many trees did the grove workers plant today?
+                    
+                    Let's think step by step.
+                    1. Calculate the initial count of the trees.
+                    2. Subtract the final count from trees.
+                    3. Return the remaining amount.
+                    '''
+                    # Step 1: Calculate the initial count of the trees.
+                    final_trees = 21
+                    
+                    # Step 2: Subtract the final count from trees.
+                    initial_trees = 15
+                    remaining_amount = initial_trees - final_trees
+                    
+                    # Step 3: Return the remaining amount.
+                    return remaining_amount
+
+                You must create a processes and correct answer to the math problem which follows the constraints.
+                DO NOT GENERATE ANY SENTENCES AFTER Final Answer.
+        - 
+            role: assistant
+            content: |
+                Processes:
+                
+                Starting with the initial number of trees:
+                
+                ```python
+                # Initial number of trees
+                initial_trees = 15
+                
+                # Final number of trees after planting
+                final_trees = 21
+                
+                # Calculate the number of trees planted
+                trees_planted = final_trees - initial_trees  # 21 - 15 = 6
+                ```
+                
+                The grove workers planted **6** trees today.
+                
+                Final Answer: 6
+        -
+            role: user
+            content: |
+                Problem: If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?
+
+                (A)
+                Answer:
+                There are 3 cars in the parking lot already.
+                2 more arrive.
+                Now there are 3 * 2 = 10 cars.
+                Final Answer: The final answer is 10. I hope it is correct.
+                
+                (B)
+                def solution():
+                    # Initial number of cars in the parking lot
+                    initial_cars = 3
+                    # Number of cars that arrive
+                    arriving_cars = 2
+                    # Calculate the total number of cars
+                    total_cars = initial_cars + arriving_cars
+                    return total_cars
+                
+                (C)
+                def solution():
+                    '''
+                    Create a function solution that returns the answer of the following question: If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?
+                    
+                    Let's think step by step.
+                    1. Initialize the variable `initial_cars` with the initial number of golf cars.
+                    2. Add the number of cars arrived.
+                    3. Return the remaining number of cars.
+                    '''
+                    # Step 1: Initialize the variable `initial_cars` with the initial number of golf cars.
+                    initial_cars = 30
+                    
+                    # Step 2: Subtract the number of cars arrived.
+                    arriving_cars = 2
+                    remaining_cars = initial_cars + arriving_cars
+                    
+                    # Step 3: Return the remaining number of cars.
+                    return remaining_cars
+
+                You must create a processes and correct answer to the math problem which follows the constraints.
+                DO NOT GENERATE ANY SENTENCES AFTER Final Answer.
+        - 
+            role: assistant
+            content: |
+                Processes:
+                
+                Starting with the initial number of cars:
+                
+                ```python
+                # Initial number of cars in the parking lot
+                initial_cars = 3
+                
+                # Number of cars that arrive
+                arriving_cars = 2
+                
+                # Calculate the total number of cars
+                total_cars = initial_cars + arriving_cars  # 3 + 2 = 5
+                ```
+                
+                The total number of cars in the parking lot is **5**.
+                
+                Final Answer: 5
+        -
+            role: user
+            content: |
+                Problem: Leah had 32 chocolates and her sister had 42.
+                If they ate 35, how many pieces do they have left in total?
+
+                (A)
+                Answer:
+                Leah had 32 chocolates and Leah's sister had 42.
+                That means there were originally 32 + 42 = 74 chocolates.
+                35 have been eaten.
+                So in total they still have 74 - 32 = 42 chocolates.
+                Final Answer: The final answer is 42. I hope it is correct.
+                
+                (B)
+                def solution():
+                    # Leah's initial number of chocolates
+                    leah_chocolates = 32
+                    # Leah's sister's initial number of chocolates
+                    sister_chocolates = 42
+                    # Total initial chocolates
+                    total_chocolates = leah_chocolates + sister_chocolates
+                    return total_chocolates
+                
+                (C)
+                def solution():
+                    '''
+                    Create a function solution that returns the answer of the following question: Leah had 32 chocolates and her sister had 42.
+                    If they ate 35, how many pieces do they have left in total?
+                    
+                    Let's think step by step.
+                    1. Calculate the total initial chocolates.
+                    2. Subtract the number of chocolates eaten.
+                    3. Return the remaining amount.
+                    '''
+                    # Step 1: Calculate the total initial chocolates.
+                    leah_chocolates = 32
+                    sister_chocolates = 42
+                    total_chocolates = leah_chocolates + sister_chocolates
+                    
+                    # Step 2: Subtract the number of chocolates eaten.
+                    chocolates_eaten = 35
+                    remaining_chocolates = total_chocolates - chocolates_eaten
+                    
+                    # Step 3: Return the remaining amount.
+                    return remaining_chocolates
+
+                You must create a processes and correct answer to the math problem which follows the constraints.
+                DO NOT GENERATE ANY SENTENCES AFTER Final Answer.
+        -
+            role: assistant
+            content: |
+                Processes:
+
+                ```python
+                # Leah's initial number of chocolates
+                leah_chocolates = 32
+                
+                # Leah's sister's initial number of chocolates
+                sister_chocolates = 42
+                
+                # Total initial chocolates
+                total_chocolates = leah_chocolates + sister_chocolates  # 32 + 42 = 74
+                
+                # Number of chocolates they ate
+                chocolates_eaten = 35
+                
+                # Calculate the number of chocolates left
+                remaining_chocolates = total_chocolates - chocolates_eaten  # 74 - 35 = 39
+                ```
+                
+                They have **39** chocolates left in total.
+                
+                Final Answer: 39
 gsm_select:
     system: |
         You are a helpful assistant that can identify the correct answer to the math problem. There are three solutions to the same math problem. I have not yet verified that these solutions are correct. One uses natural language to answer the question, while the other two uses Python program to answer it. One directly attempts to answer the problem with coding the solution, while the last one will plan first and then write a code to answer it. You can carefully cross and mix various processes of solving the math problem from each solution to make an optimal solution to the problem, referring to the process you think is correct, and if the provided solution is wrong, modify and improve that part. Your answer must contains problem solving process and the answer of problem.

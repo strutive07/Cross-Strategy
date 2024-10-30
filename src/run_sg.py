@@ -15,7 +15,7 @@ from task_runner import TaskRunner
 
 def filter_tobe_run(records):
     df = pd.DataFrame(records).reset_index(drop=True)
-    mask = df.need_selection.apply(lambda x: x[0])
+    mask = df.need_selection.apply(lambda x: True)
     df = df.reset_index()
     records = df[mask].to_dict(orient="records")
     torun_idx = df[mask].index.tolist()

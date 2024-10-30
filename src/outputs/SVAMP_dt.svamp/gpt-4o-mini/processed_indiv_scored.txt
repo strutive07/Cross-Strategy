@@ -1,0 +1,20 @@
+file      = outputs/SVAMP_dt.svamp/gpt-4o-mini/processed_indiv.jsonl
+dataset   = svamp
+=======individual performance=======
+cot:	798  / 1000 (79.8%)
+
+
+pal:	946  / 1000 (94.6%)
+
+
+p2c:	933  / 1000 (93.3%)
+
+
+=====================================
+
+
+========distinctive behaviors========
+{'all': 770, 'cotpal-p2c': 16, 'palp2c-cot': 145, 'p2ccot-pal': 5, 'cot_only': 7, 'pal_only': 15, 'p2c_only': 13}
+=====================================
+
+

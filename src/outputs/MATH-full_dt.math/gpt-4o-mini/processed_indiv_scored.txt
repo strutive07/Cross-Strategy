@@ -58,3 +58,23 @@ p2c:	2824 / 5000 (56.5%)
 =====================================
 
 
+file      = outputs/MATH-full_dt.math/gpt-4o-mini/processed_indiv.jsonl
+dataset   = math
+=======individual performance=======
+cot:	3122 / 5000 (62.4%)
+
+
+pal:	2736 / 5000 (54.7%)
+
+
+p2c:	2824 / 5000 (56.5%)
+
+
+=====================================
+
+
+========distinctive behaviors========
+{'all': 1705, 'cotpal-p2c': 385, 'palp2c-cot': 438, 'p2ccot-pal': 399, 'cot_only': 633, 'pal_only': 208, 'p2c_only': 282}
+=====================================
+
+
