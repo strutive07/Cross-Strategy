@@ -111,9 +111,8 @@ def read_md(fname):
     df['simple greedy'] = [str(load_sg(dataset_name, model_name))]
     
     df['cross_and_mix'] = [str(load_cross_and_mix(dataset_name, model_name))]
-    df['cross_and_mix_with_selection'] = [str(load_cross_and_mix_with_selection(dataset_name, model_name))]
 
-    df = df[['model_name', 'cot', 'pal', 'p2c', 'simple greedy', 'cross_and_mix', 'cross_and_mix_with_selection']]
+    df = df[['model_name', 'cot', 'pal', 'p2c', 'simple greedy', 'cross_and_mix']]
 
     return dataset_name, model_name, df
 
