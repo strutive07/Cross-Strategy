@@ -216,7 +216,7 @@ def score_sg(
         aggf = partial(get_concordant_answer_n, dataset_type=eval_type)
 
         # need to specify which to submit
-        mask_sel = df.need_selection.apply(lambda x: x[0])
+        mask_sel = df.need_selection.apply(lambda x: True)
         df_sel = df[mask_sel]
         df_maj = df[~mask_sel]
         df_sel["submission"] = df_sel.sg_answer.apply(aggf)
@@ -370,7 +370,7 @@ def score_cross_and_mix(
         eval_f = eval_type2eval_f[eval_type]
 
         # need to specify which to submit
-        mask_sel = df.need_selection.apply(lambda x: x[0])
+        mask_sel = df.need_selection.apply(lambda x: True)
         df_sel = df[mask_sel]
         df_maj = df[~mask_sel]
         print(len(df_sel), len(df_maj))
