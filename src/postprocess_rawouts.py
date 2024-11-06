@@ -135,6 +135,7 @@ def process_cross_and_mix(
     infile = Path(infile).name
     outfile = Path(outfile).name
     outjslf = Path(parent_dir) / outfile
+    print(infile, outfile)
     assert infile != outfile
     # if outjslf.exists():
     #     print(outjslf, ': Tasks that have already been completed.')

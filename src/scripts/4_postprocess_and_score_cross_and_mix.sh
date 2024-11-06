@@ -1,17 +1,47 @@
+#!/bin/bash
 MODEL=$1
 
-F1=outputs/gsm8K_test_dt.gsm/$MODEL/cross_and_mix/n1_0.0_sg_raw_query_result.jsonl
-F2=outputs/MATH-full_dt.math/$MODEL/cross_and_mix/n1_0.0_sg_raw_query_result.jsonl
-F3=outputs/SVAMP_dt.svamp/$MODEL/cross_and_mix/n1_0.0_sg_raw_query_result.jsonl
+run_process()
+{
+    echo "first parameter : "$1
+    echo "second parameter : "$2
+    echo "second parameter : "$3
 
-python postprocess_rawouts.py process_cross_and_mix --dataset_type gsm --infile $F1
-python postprocess_rawouts.py process_cross_and_mix --dataset_type math --infile $F2
-python postprocess_rawouts.py process_cross_and_mix --dataset_type svamp --infile $F3
+    ptn1="$2/$3/n1_0.0_sg_raw_query_result.jsonl"
+    ptn2="$2/$3/processed_cross_and_mix.jsonl"
 
-F1=outputs/gsm8K_test_dt.gsm/$MODEL/cross_and_mix/processed_cross_and_mix.jsonl
-F2=outputs/MATH-full_dt.math/$MODEL/cross_and_mix/processed_cross_and_mix.jsonl
-F3=outputs/SVAMP_dt.svamp/$MODEL/cross_and_mix/processed_cross_and_mix.jsonl
+    python postprocess_rawouts.py process_cross_and_mix --dataset_type $1 --infile $ptn1
+    python score_processed.py score_cross_and_mix --ptn $ptn2
+}
 
-python score_processed.py score_cross_and_mix --ptn $F1
-python score_processed.py score_cross_and_mix --ptn $F2
-python score_processed.py score_cross_and_mix --ptn $F3
+run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix"
+run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_cot_pal"
+run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_cot_p2c"
+run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_p2c_pal"
+
+run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_with_pred"
+run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_cot_pal_with_pred"
+run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_cot_p2c_with_pred"
+run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_p2c_pal_with_pred"
+
+
+run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix"
+run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_cot_pal"
+run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_cot_p2c"
+run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_p2c_pal"
+
+run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_with_pred"
+run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_cot_pal_with_pred"
+run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_cot_p2c_with_pred"
+run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_p2c_pal_with_pred"
+
+
+run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix"
+run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_cot_pal"
+run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_cot_p2c"
+run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_p2c_pal"
+
+run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_with_pred"
+run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_cot_pal_with_pred"
+run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_cot_p2c_with_pred"
+run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_p2c_pal_with_pred"

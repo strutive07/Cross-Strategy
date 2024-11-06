@@ -1,0 +1,3 @@
+gsm / rims score
+	+ selection: 0.857 (1130/1319)
+total: 0.857 (1130/1319)

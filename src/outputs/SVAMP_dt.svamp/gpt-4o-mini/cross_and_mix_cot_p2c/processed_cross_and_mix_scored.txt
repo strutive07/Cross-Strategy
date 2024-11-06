@@ -1,0 +1,3 @@
+svamp / rims score
+	+ selection: 0.837 (837/1000)
+total: 0.837 (837/1000)

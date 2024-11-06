@@ -66,8 +66,8 @@ def load_rims_disable_hinting(dataset_name, model_name):
 
     return f'{max_score} {status}'
 
-def load_cross_and_mix(dataset_name, model_name):
-    fname = f'outputs/{dataset_name}/{model_name}/cross_and_mix/processed_cross_and_mix_scored.txt'
+def load_cross_and_mix(dataset_name, model_name, suffix=""):
+    fname = f'outputs/{dataset_name}/{model_name}/cross_and_mix{suffix}/processed_cross_and_mix_scored.txt'
 
     fnames = glob.glob(fname)
     max_score = 0
@@ -111,8 +111,18 @@ def read_md(fname):
     df['simple greedy'] = [str(load_sg(dataset_name, model_name))]
     
     df['cross_and_mix'] = [str(load_cross_and_mix(dataset_name, model_name))]
+    df['cross_and_mix_cot_pal'] = [str(load_cross_and_mix(dataset_name, model_name, "_cot_pal"))]
+    df['cross_and_mix_cot_p2c'] = [str(load_cross_and_mix(dataset_name, model_name, "_cot_p2c"))]
+    df['cross_and_mix_p2c_pal'] = [str(load_cross_and_mix(dataset_name, model_name, "_p2c_pal"))]
 
-    df = df[['model_name', 'cot', 'pal', 'p2c', 'simple greedy', 'cross_and_mix']]
+    df['cross_and_mix_with_pred'] = [str(load_cross_and_mix(dataset_name, model_name, "_with_pred"))]
+    df['cross_and_mix_cot_pal_with_pred'] = [str(load_cross_and_mix(dataset_name, model_name, "_cot_pal_with_pred"))]
+    df['cross_and_mix_cot_p2c_with_pred'] = [str(load_cross_and_mix(dataset_name, model_name, "_cot_p2c_with_pred"))]
+    df['cross_and_mix_p2c_pal_with_pred'] = [str(load_cross_and_mix(dataset_name, model_name, "_p2c_pal_with_pred"))]
+
+    df = df[['model_name', 'cot', 'pal', 'p2c', 'simple greedy',
+             'cross_and_mix', 'cross_and_mix_cot_pal', 'cross_and_mix_cot_p2c', 'cross_and_mix_p2c_pal',
+            'cross_and_mix_with_pred', 'cross_and_mix_cot_pal_with_pred', 'cross_and_mix_cot_p2c_with_pred', 'cross_and_mix_p2c_pal_with_pred',]]
 
     return dataset_name, model_name, df
 

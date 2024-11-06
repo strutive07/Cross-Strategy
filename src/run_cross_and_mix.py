@@ -16,14 +16,9 @@ from task_runner import TaskRunner
 def filter_tobe_run(records, with_selection=False):
     df = pd.DataFrame(records).reset_index(drop=True)
     
-    if not with_selection:
-        mask = df.need_selection.apply(lambda x: True)
-    else:
-        mask = df.need_selection.apply(lambda x: x[0])
-        
     df = df.reset_index()
-    records = df[mask].to_dict(orient="records")
-    torun_idx = df[mask].index.tolist()
+    records = df.to_dict(orient="records")
+    torun_idx = df.index.tolist()
     return records, torun_idx
 
 
@@ -64,8 +59,15 @@ async def run_task(
     temperature: float = 0.0,
     backbone: str = "vllm",
     seed: int = 777,
+    prompt_version_suffix: str = "",
+    with_pred: bool = False,
     # dataset_type: Literal["gsm", "ocw", "math"] = "",
 ):
+    if not prompt_version_suffix:
+        prompt_yml_file = "cross_and_mix_prompts.yaml"
+    else:
+        prompt_yml_file = f"cross_and_mix_prompts_{prompt_version_suffix}.yaml"
+        
     task_runner_obj = TaskRunner(100)
 
     for row in records:
@@ -75,6 +77,8 @@ async def run_task(
             n=n,
             seed=seed,
             backbone=backbone,
+            prompt_yml_file=prompt_yml_file,
+            with_pred=with_pred,
             # dataset_type=dataset_type
         )
         task_runner_obj.add_task(jobs)
@@ -91,7 +95,9 @@ async def main(
     backbone: str = "meta-llama/Meta-Llama-3-8B-Instruct",
     seed: int = 777,
     temperature: float = 0.0,
-    with_selection: bool = True
+    with_selection: bool = True,
+    prompt_version_suffix: str = "",
+    with_pred: bool = False
 ):
     """
     dataset_type will be included in every row of
@@ -112,6 +118,10 @@ async def main(
     res = []
 
     output_suffix = '_with_selection' if with_selection else ''
+
+    if prompt_version_suffix:
+        output_suffix += f'_{prompt_version_suffix}'
+
     outdir = Path(indiv_processed_jslf).parent / f"cross_and_mix{output_suffix}"
 
     if not outdir.exists():
@@ -128,6 +138,8 @@ async def main(
         temperature=temperature,
         backbone=backbone,
         seed=seed,
+        prompt_version_suffix=prompt_version_suffix,
+        with_pred=with_pred
     )
     # save_results
     save_res(outpath, res_selection)

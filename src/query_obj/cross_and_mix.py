@@ -8,8 +8,9 @@ from query_obj import BaseQueryObject
 
 
 class CrossAndMixQueryObject(BaseQueryObject):
-    def __init__(self, dataset_type):
+    def __init__(self, dataset_type, prompt_yml_file):
         self.dataset_type = dataset_type
+        self.prompt_yml_file = prompt_yml_file
 
     async def prepare_query(
         self,
@@ -21,6 +22,7 @@ class CrossAndMixQueryObject(BaseQueryObject):
             question,
             cot_pal_p2c_sln_d=cot_pal_p2c_sln_d,
             dataset_type=self.dataset_type,
+            prompt_yml_file=self.prompt_yml_file
         )
 
     # need override
@@ -90,10 +92,11 @@ def get_select_prompt2(
     question: str,
     cot_pal_p2c_sln_d: dict = None,
     dataset_type: Literal["gsm", "svamp", "ocw", "math"] = None,
+    prompt_yml_file: str = "cross_and_mix_prompts.yaml"
 ) -> List[Dict[str, str]]:
     # open up prompt template yaml file
     THIS_PARENT = Path(__file__).parent.resolve()
-    prompt_yml = THIS_PARENT / "cross_and_mix_prompts.yaml"
+    prompt_yml = THIS_PARENT / prompt_yml_file
     import yaml
 
     prompt_d: Dict[str, Any] = yaml.full_load(open(prompt_yml))
@@ -118,5 +121,6 @@ def get_select_prompt2(
     user_attempt = user_tmp
 
     msgs.append({"role": "user", "content": user_attempt})
+    msgs = [{"role": "system", "content": system}] + msgs
 
     return msgs
