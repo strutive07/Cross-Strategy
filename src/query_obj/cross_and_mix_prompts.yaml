@@ -12,7 +12,7 @@ svamp_select:
 
         # Answer Formatting Constraints
         - Review solutions: This Section should starts with 'Review Solutions: '. Each solution is a process of organizing your thought process before creating the final solution. Please explain in detail which of the steps in each solution are good to reference and which are incorrect thought processes and should be revised and used. Always talk about this review process before creating your final response.
-        - Answer Formatting: The final answer should begin with 'Processes: ', followed by an explanation that may include natural language, Python code, or LaTeX syntax. Afterward, 'Final Answer: ' must present only the correct python code solution. Python code solutions must use Markdown Python code blocks (between ```python and ```). This ensures a clear and consistent format for responses.
+        - Answer Formatting: The final answer should begin with 'Processes: ', followed by an explanation that may include natural language, Python code, or LaTeX syntax. Afterward, 'Final Answer: ' must present only the correct python code solution. Python code solutions must use Markdown Python code blocks (between ```python and ```). This ensures a clear and consistent format for responses. If you generate more then one python function after Final Answer, entrypoint of solution function's name must be 'def solution'.
         
         - No Natrual Langauge Information After Final Answer: 'Final Answer:' must present only the correct python code solution. DO NOT GENERATE ANY SENTENCES AFTER Final Answer python code.
     user_tmp: |
@@ -317,7 +317,7 @@ gsm_select:
 
         # Answer Formatting Constraints
         - Review solutions: This Section should starts with 'Review Solutions: '. Each solution is a process of organizing your thought process before creating the final solution. Please explain in detail which of the steps in each solution are good to reference and which are incorrect thought processes and should be revised and used. Always talk about this review process before creating your final response.
-        - Answer Formatting: The final answer should begin with 'Processes: ', followed by an explanation that may include natural language, Python code, or LaTeX syntax. Afterward, 'Final Answer: ' must present only the correct python code solution. Python code solutions must use Markdown Python code blocks (between ```python and ```). This ensures a clear and consistent format for responses.
+        - Answer Formatting: The final answer should begin with 'Processes: ', followed by an explanation that may include natural language, Python code, or LaTeX syntax. Afterward, 'Final Answer: ' must present only the correct python code solution. Python code solutions must use Markdown Python code blocks (between ```python and ```). This ensures a clear and consistent format for responses. If you generate more then one python function after Final Answer, entrypoint of solution function's name must be 'def solution'.
         
         - No Natrual Langauge Information After Final Answer: 'Final Answer:' must present only the correct python code solution. DO NOT GENERATE ANY SENTENCES AFTER Final Answer python code.
     user_tmp: |
@@ -599,7 +599,7 @@ math_select:
 
         # Answer Formatting Constraints
         - Review solutions: This Section should starts with 'Review Solutions: '. Each solution is a process of organizing your thought process before creating the final solution. Please explain in detail which of the steps in each solution are good to reference and which are incorrect thought processes and should be revised and used. Always talk about this review process before creating your final response.
-        - Answer Formatting: The final answer should begin with 'Processes: ', followed by an explanation that may include natural language, Python code, or LaTeX syntax. Afterward, 'Final Answer: ' must present only the correct python code solution. Python code solutions must use Markdown Python code blocks (between ```python and ```). This ensures a clear and consistent format for responses.
+        - Answer Formatting: The final answer should begin with 'Processes: ', followed by an explanation that may include natural language, Python code, or LaTeX syntax. Afterward, 'Final Answer: ' must present only the correct python code solution. Python code solutions must use Markdown Python code blocks (between ```python and ```). This ensures a clear and consistent format for responses. If you generate more then one python function after Final Answer, entrypoint of solution function's name must be 'def solution'.
         
         - No Natrual Langauge Information After Final Answer: 'Final Answer:' must present only the correct python code solution. DO NOT GENERATE ANY SENTENCES AFTER Final Answer python code.
     user_tmp: |
