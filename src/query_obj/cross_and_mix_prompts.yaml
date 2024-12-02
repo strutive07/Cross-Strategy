@@ -1,0 +1,967 @@
+svamp_select:
+    system: |
+        You are a helpful assistant that can identify the correct answer to the math problem. There are three solutions to the same math problem. I have not yet verified that these solutions are correct. (A) solution uses natural language to answer the question, while the other (B), (C) uses Python program to answer it. (B) directly attempts to answer the problem with coding the solution, while (C) will plan first and then write a code to answer it. You can carefully cross and mix various processes of solving the math problem from each solution to make an optimal solution to the problem, referring to the process you think is correct, and if the provided solution is wrong, modify and improve that part. Before creating your own new solution steps, carefully review each of the steps in (A), (B), and (C), noting which parts are correct and, if any of the steps are incorrect, why they are incorrect, and then create your own new solution steps. Your answer must contains problem solving process and the final answer of problem in python code.
+
+        # Efficiency Constraints
+        - Time Complexity: The solution should efficiently solve the problem within the smallest possible time complexity, ideally minimizing loops or recursive calls. The expected complexity is either constant O(1), linear O(n), or logarithmic O(logn), depending on the nature of the problem.
+        - Space Complexity: The solution should use minimal memory, optimizing for O(1) space complexity where feasible. Data structures and variables should not consume excessive space, especially in large input cases.
+
+        # Clarity and Correctness Constraints
+        - Correctness: The solution must accurately and consistently provide the correct answer for all possible valid inputs. Edge cases, such as extreme values or unusual inputs, should be handled appropriately to ensure that the solution is reliable in all scenarios. Comprehensive testing should be conducted to verify the correctness.
+        - Readability: The solution should be clearly structured and easily understandable. Variable names, comments, and logical sections should be well-defined, ensuring that other programmers can easily follow and maintain the code.
+
+        # Answer Formatting Constraints
+        - Review solutions: This Section should starts with 'Review Solutions: '. Each solution is a process of organizing your thought process before creating the final solution. Please explain in detail which of the steps in each solution are good to reference and which are incorrect thought processes and should be revised and used. Always talk about this review process before creating your final response.
+        - Answer Formatting: The final answer should begin with 'Processes: ', followed by an explanation that may include natural language, Python code, or LaTeX syntax. Afterward, 'Final Answer: ' must present only the correct python code solution. Python code solutions must use Markdown Python code blocks (between ```python and ```). This ensures a clear and consistent format for responses. If you generate more then one python function after Final Answer, entrypoint of solution function's name must be 'def solution'.
+        
+        - No Natrual Langauge Information After Final Answer: 'Final Answer:' must present only the correct python code solution. DO NOT GENERATE ANY SENTENCES AFTER Final Answer python code.
+    user_tmp: |
+        Problem: {QUESTION}
+
+        (A)
+        {COT_SOLUTION}
+
+        (B)
+        {PAL_SOLUTION}
+
+        (C)
+        {P2C_SOLUTION}
+    contexts:
+        - 
+            role: user
+            content: |
+                Problem: There are 15 trees in the grove. Grove workers will plant trees in the grove today.After they are done, there will be 21 trees. 
+                How many trees did the grove workers plant today?
+
+                (A)
+                Answer:
+                We start with 15 trees. 
+                Later we have 21 trees.
+                The difference must be the number of trees they planted.
+                So, they must have planted 21 - 15 = 6 trees.
+                Final Answer: The final answer is 6. I hope it is correct.
+                
+                (B)
+                def solution():
+                    # Initial number of trees
+                    initial_trees = 15
+                    
+                    # Final number of trees
+                    final_trees = 21
+                    
+                    # Calculate the number of trees planted
+                    trees_planted = final_trees + initial_trees
+                    
+                    return trees_planted
+                
+                (C)
+                def solution():
+                    '''
+                    Create a function solution that returns the answer of the following question: There are 15 trees in the grove. Grove workers will plant trees in the grove today.After they are done, there will be 21 trees.
+                    How many trees did the grove workers plant today?
+                    
+                    Let's think step by step.
+                    1. Calculate the initial count of the trees.
+                    2. Subtract the final count from trees.
+                    3. Return the remaining amount.
+                    '''
+                    # Step 1: Calculate the initial count of the trees.
+                    final_trees = 21
+                    
+                    # Step 2: Subtract the final count from trees.
+                    initial_trees = 15
+                    remaining_amount = initial_trees - final_trees
+                    
+                    # Step 3: Return the remaining amount.
+                    return remaining_amount
+        - 
+            role: assistant
+            content: |
+                Review Solutions:
+                
+                **Solution (A):**
+                This solution correctly identifies that the number of trees planted is the difference between the final and initial number of trees. The calculation \(21 - 15 = 6\) is accurate. The reasoning is sound and leads to the correct answer.
+                
+                **Solution (B):**
+                In this solution, the code calculates `trees_planted = final_trees + initial_trees`, which sums the initial and final numbers of trees. This is incorrect because it gives \(21 + 15 = 36\), which does not represent the number of trees planted. The correct operation should be subtraction, not addition.
+                
+                **Solution (C):**
+                This solution attempts to find the number of trees planted by calculating `remaining_amount = initial_trees - final_trees`, resulting in \(15 - 21 = -6\). This yields a negative number, which doesn't make sense in this context. The correct calculation should be `final_trees - initial_trees` to get the positive number of trees planted.
+                
+                Processes:
+                
+                To determine the number of trees planted, subtract the initial number of trees from the final number:
+                - **Initial trees:** 15
+                - **Final trees:** 21
+                - **Trees planted:** `final_trees - initial_trees = 21 - 15 = 6`
+                
+                This calculation accurately reflects the number of trees planted today.
+                
+                Final Answer:
+                ```python
+                def solution():
+                    initial_trees = 15
+                    final_trees = 21
+                    trees_planted = final_trees - initial_trees
+                    return trees_planted
+                ```
+        -
+            role: user
+            content: |
+                Problem: If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?
+
+                (A)
+                Answer:
+                There are 3 cars in the parking lot already.
+                2 more arrive.
+                Now there are 3 * 2 = 10 cars.
+                Final Answer: The final answer is 10. I hope it is correct.
+                
+                (B)
+                def solution():
+                    # Initial number of cars in the parking lot
+                    initial_cars = 3
+                    # Number of cars that arrive
+                    arriving_cars = 2
+                    # Calculate the total number of cars
+                    total_cars = initial_cars + arriving_cars
+                    return total_cars
+                
+                (C)
+                def solution():
+                    '''
+                    Create a function solution that returns the answer of the following question: If there are 3 cars in the parking lot and 2 more cars arrive, how many cars are in the parking lot?
+                    
+                    Let's think step by step.
+                    1. Initialize the variable `initial_cars` with the initial number of golf cars.
+                    2. Add the number of cars arrived.
+                    3. Return the remaining number of cars.
+                    '''
+                    # Step 1: Initialize the variable `initial_cars` with the initial number of golf cars.
+                    initial_cars = 30
+                    
+                    # Step 2: Subtract the number of cars arrived.
+                    arriving_cars = 2
+                    remaining_cars = initial_cars + arriving_cars
+                    
+                    # Step 3: Return the remaining number of cars.
+                    return remaining_cars
+        - 
+            role: assistant
+            content: |
+                Review Solutions:
+                
+                **Solution (A):**
+                
+                This solution incorrectly uses multiplication instead of addition. It calculates \(3 \times 2 = 10\), which is mathematically incorrect since \(3 \times 2 = 6\), not 10. Additionally, in the context of the problem, we should add the arriving cars to the initial number, not multiply them. Therefore, this solution is incorrect.
+                
+                **Solution (B):**
+                
+                This solution correctly initializes the number of initial cars and the number of arriving cars. It then adds them to find the total number of cars:
+                
+                - `initial_cars = 3`
+                - `arriving_cars = 2`
+                - `total_cars = initial_cars + arriving_cars`
+                
+                This approach is correct and leads to the right answer.
+                
+                **Solution (C):**
+                
+                This solution has several errors:
+                
+                - It sets `initial_cars = 30` instead of 3, which doesn't match the problem statement.
+                - The comments mention "golf cars," which is irrelevant here.
+                - It incorrectly states "Subtract the number of cars arrived" but performs addition in the code.
+                - The variable `remaining_cars` is misleading; it should be `total_cars`.
+                
+                Therefore, this solution is incorrect.
+                
+                Processes:
+                
+                To solve the problem:
+                
+                1. **Initialize the initial number of cars:**
+                
+                   \[
+                   \text{initial\_cars} = 3
+                   \]
+                
+                2. **Initialize the number of arriving cars:**
+                
+                   \[
+                   \text{arriving\_cars} = 2
+                   \]
+                
+                3. **Calculate the total number of cars:**
+                
+                   \[
+                   \text{total\_cars} = \text{initial\_cars} + \text{arriving\_cars} = 3 + 2 = 5
+                   \]
+                
+                Final Answer:
+                ```python
+                def solution():
+                    initial_cars = 3
+                    arriving_cars = 2
+                    total_cars = initial_cars + arriving_cars
+                    return total_cars
+                ```
+        -
+            role: user
+            content: |
+                Problem: Leah had 32 chocolates and her sister had 42.
+                If they ate 35, how many pieces do they have left in total?
+
+                (A)
+                Answer:
+                Leah had 32 chocolates and Leah's sister had 42.
+                That means there were originally 32 + 42 = 74 chocolates.
+                35 have been eaten.
+                So in total they still have 74 - 32 = 42 chocolates.
+                Final Answer: The final answer is 42. I hope it is correct.
+                
+                (B)
+                def solution():
+                    # Leah's initial number of chocolates
+                    leah_chocolates = 32
+                    # Leah's sister's initial number of chocolates
+                    sister_chocolates = 42
+                    # Total initial chocolates
+                    total_chocolates = leah_chocolates + sister_chocolates
+                    return total_chocolates
+                
+                (C)
+                def solution():
+                    '''
+                    Create a function solution that returns the answer of the following question: Leah had 32 chocolates and her sister had 42.
+                    If they ate 35, how many pieces do they have left in total?
+                    
+                    Let's think step by step.
+                    1. Calculate the total initial chocolates.
+                    2. Subtract the number of chocolates eaten.
+                    3. Return the remaining amount.
+                    '''
+                    # Step 1: Calculate the total initial chocolates.
+                    leah_chocolates = 32
+                    sister_chocolates = 42
+                    total_chocolates = leah_chocolates + sister_chocolates
+                    
+                    # Step 2: Subtract the number of chocolates eaten.
+                    chocolates_eaten = 35
+                    remaining_chocolates = total_chocolates - chocolates_eaten
+                    
+                    # Step 3: Return the remaining amount.
+                    return remaining_chocolates
+        -
+            role: assistant
+            content: |
+                Review Solutions:
+                
+                **Solution (A):**
+                
+                This solution correctly calculates the initial total number of chocolates as \(32 + 42 = 74\). However, when subtracting the chocolates eaten, it mistakenly subtracts 32 instead of 35, calculating \(74 - 32 = 42\). The correct calculation should be \(74 - 35 = 39\). Therefore, the final answer of 42 is incorrect.
+                
+                **Solution (B):**
+                
+                This solution calculates the total initial chocolates but doesn't account for the chocolates eaten. It returns the total chocolates without subtracting the 35 chocolates eaten, so it doesn't answer the question fully.
+                
+                **Solution (C):**
+                
+                This solution correctly:
+                
+                1. Calculates the total initial chocolates: \(32 + 42 = 74\).
+                2. Subtracts the chocolates eaten: \(74 - 35 = 39\).
+                3. Returns the remaining chocolates.
+                
+                This solution accurately solves the problem.
+                
+                Processes:
+                
+                To solve the problem:
+                
+                1. **Calculate the total initial chocolates:**
+                
+                   \[
+                   \text{total\_chocolates} = 32 + 42 = 74
+                   \]
+                
+                2. **Subtract the number of chocolates eaten:**
+                
+                   \[
+                   \text{remaining\_chocolates} = 74 - 35 = 39
+                   \]
+                
+                3. **Return the remaining chocolates.**
+                
+                Final Answer:
+                ```python
+                def solution():
+                    leah_chocolates = 32
+                    sister_chocolates = 42
+                    total_chocolates = leah_chocolates + sister_chocolates
+                    chocolates_eaten = 35
+                    remaining_chocolates = total_chocolates - chocolates_eaten
+                    return remaining_chocolates
+                ```
+gsm_select:
+    system: |
+        You are a helpful assistant that can identify the correct answer to the math problem. There are three solutions to the same math problem. I have not yet verified that these solutions are correct. (A) solution uses natural language to answer the question, while the other (B), (C) uses Python program to answer it. (B) directly attempts to answer the problem with coding the solution, while (C) will plan first and then write a code to answer it. You can carefully cross and mix various processes of solving the math problem from each solution to make an optimal solution to the problem, referring to the process you think is correct, and if the provided solution is wrong, modify and improve that part. Before creating your own new solution steps, carefully review each of the steps in (A), (B), and (C), noting which parts are correct and, if any of the steps are incorrect, why they are incorrect, and then create your own new solution steps. Your answer must contains problem solving process and the final answer of problem in python code.
+
+        # Efficiency Constraints
+        - Time Complexity: The solution should efficiently solve the problem within the smallest possible time complexity, ideally minimizing loops or recursive calls. The expected complexity is either constant O(1), linear O(n), or logarithmic O(logn), depending on the nature of the problem.
+        - Space Complexity: The solution should use minimal memory, optimizing for O(1) space complexity where feasible. Data structures and variables should not consume excessive space, especially in large input cases.
+
+        # Clarity and Correctness Constraints
+        - Correctness: The solution must accurately and consistently provide the correct answer for all possible valid inputs. Edge cases, such as extreme values or unusual inputs, should be handled appropriately to ensure that the solution is reliable in all scenarios. Comprehensive testing should be conducted to verify the correctness.
+        - Readability: The solution should be clearly structured and easily understandable. Variable names, comments, and logical sections should be well-defined, ensuring that other programmers can easily follow and maintain the code.
+
+        # Answer Formatting Constraints
+        - Review solutions: This Section should starts with 'Review Solutions: '. Each solution is a process of organizing your thought process before creating the final solution. Please explain in detail which of the steps in each solution are good to reference and which are incorrect thought processes and should be revised and used. Always talk about this review process before creating your final response.
+        - Answer Formatting: The final answer should begin with 'Processes: ', followed by an explanation that may include natural language, Python code, or LaTeX syntax. Afterward, 'Final Answer: ' must present only the correct python code solution. Python code solutions must use Markdown Python code blocks (between ```python and ```). This ensures a clear and consistent format for responses. If you generate more then one python function after Final Answer, entrypoint of solution function's name must be 'def solution'.
+        
+        - No Natrual Langauge Information After Final Answer: 'Final Answer:' must present only the correct python code solution. DO NOT GENERATE ANY SENTENCES AFTER Final Answer python code.
+    user_tmp: |
+        Problem: {QUESTION}
+
+        (A)
+        {COT_SOLUTION}
+
+        (B)
+        {PAL_SOLUTION}
+
+        (C)
+        {P2C_SOLUTION}
+    contexts:
+        - 
+            role: user
+            content: |
+                Problem: Olivia has $23. She bought five bagels for $3 each. How much money does she have left?
+
+                (A)
+                Answer:
+                Olivia had 23 dollars.
+                5 bagels for 3 dollars each will be 5 * 3 = 15 dollars.
+                So she has 23 - 15 = 8 dollars left.
+                So the answer is 8.
+                
+                (B)
+                def solution():
+                    money_initial = 23
+                    bagels = 5
+                    bagel_cost = 3
+                    money_spent = bagels + bagel_cost
+                    money_left = money_initial - money_spent
+                    result = money_left
+                    return result
+                
+                (C)
+                def solution():
+                    '''
+                    Create a function solution that returns the answer of the following question: Olivia has $23. She bought five bagels for $3 each. How much money does she have left?
+                    
+                    Let's think step by step.
+                    1. Calculate the total cost of the bagels.
+                    2. Subtract the total cost from Olivia's original amount.
+                    3. Return the remaining amount.
+                    '''
+                    # Step 1: Calculate the total cost of the bagels
+                    bagel_cost = 3
+                    num_bagels = 5
+                    total_cost = bagel_cost * num_bagels
+                    
+                    # Step 2: Subtract the total cost from Olivia's original amount
+                    original_amount = 23
+                    remaining_amount = original_amount - total_cost - num_bagels
+                    
+                    # Step 3: Return the remaining amount
+                    return remaining_amount
+        - 
+            role: assistant
+            content: |
+                Review Solutions:
+                
+                **Solution (A):** This solution correctly calculates the total cost by multiplying the number of bagels (5) by the cost per bagel ($3), resulting in $15. It then subtracts this total cost from Olivia's original amount ($23) to find that she has $8 left. This is accurate and well-explained.
+                
+                **Solution (B):** This code incorrectly calculates the money spent. It adds the number of bagels to the cost per bagel (`money_spent = bagels + bagel_cost`), resulting in `5 + 3 = 8`, which is not the correct total cost. The correct approach is to multiply the number of bagels by the cost per bagel.
+                
+                **Solution (C):** While this solution correctly calculates the total cost (`total_cost = bagel_cost * num_bagels`), it incorrectly subtracts the number of bagels again in the remaining amount calculation (`remaining_amount = original_amount - total_cost - num_bagels`). This leads to an incorrect remaining amount. The correct calculation should only subtract the total cost from the original amount.
+                
+                Processes:
+                
+                To solve the problem:
+                
+                1. **Calculate the total cost of the bagels:**
+                   ```python
+                   total_cost = bagel_cost * num_bagels
+                   ```
+                2. **Subtract the total cost from Olivia's original amount:**
+                   ```python
+                   remaining_amount = original_amount - total_cost
+                   ```
+                3. **Return the remaining amount.**
+                
+                Final Answer:
+                ```python
+                def solution():
+                    original_amount = 23
+                    num_bagels = 5
+                    bagel_cost = 3
+                    total_cost = bagel_cost * num_bagels
+                    remaining_amount = original_amount - total_cost
+                    return remaining_amount
+                ```
+        -
+            role: user
+            content: |
+                Problem: Michael had 58 golf balls. On tuesday, he lost 23 golf balls. On wednesday, he lost 2 more. How many golf balls did he have at the end of wednesday?
+
+                (A)
+                Answer:
+                Michael started with 58 golf balls.
+                Then after losing 23 on tuesday, he had 58 -23 = 35.
+                After losing 2 more, he had 35 + 2 = 37 golf balls.
+                So the answer is 37.
+                
+                (B)
+                def solution():
+                    golf_balls_initial = 58
+                    golf_balls_lost_tuesday = 23
+                    golf_balls_lost_wednesday = 2
+                    golf_balls_left = golf_balls_initial - golf_balls_lost_tuesday + golf_balls_lost_wednesday
+                    result = golf_balls_left
+                    return result
+                
+                (C)
+                def solution():
+                    '''
+                    Create a function solution that returns the answer of the following question: Michael had 58 golf balls. On tuesday, he lost 23 golf balls. On wednesday, he lost 2 more. How many golf balls did he have at the end of wednesday?
+                    
+                    Let's think step by step.
+                    1. Initialize the variable `golf_balls` with the initial number of golf balls.
+                    2. Subtract the number of golf balls lost on Tuesday and Wednesday.
+                    3. Return the remaining number of golf balls.
+                    '''
+                    # Step 1: Initialize the variable `golf_balls` with the initial number of golf balls
+                    golf_balls = 58
+                    
+                    # Step 2: Subtract the number of golf balls lost on Tuesday (23) and Wednesday (2)
+                    golf_balls -= 23  # golf balls lost on Tuesday
+                    golf_balls -= 2   # golf balls lost on Wednesday
+                    
+                    # Step 3: Return the remaining number of golf balls
+                    return golf_balls
+        - 
+            role: assistant
+            content: |
+                Review Solutions:
+                
+                **Solution (A):** This solution contains a calculation error. After losing 23 golf balls on Tuesday, Michael had 58 - 23 = 35 golf balls left, which is correct. However, the solution then adds 2 golf balls instead of subtracting them, stating 35 + 2 = 37 golf balls. Since Michael lost 2 more golf balls on Wednesday, the correct calculation should be 35 - 2 = 33 golf balls left at the end of Wednesday.
+                
+                **Solution (B):** The code incorrectly adds the golf balls lost on Wednesday instead of subtracting them. The line `golf_balls_left = golf_balls_initial - golf_balls_lost_tuesday + golf_balls_lost_wednesday` should subtract `golf_balls_lost_wednesday` to reflect the loss, not add it.
+                
+                **Solution (C):** This solution correctly initializes the total number of golf balls and sequentially subtracts the number lost on each day. It accurately calculates the remaining number of golf balls after both days.
+                
+                Processes:
+                
+                To solve the problem:
+                
+                1. **Initialize the total number of golf balls Michael had initially:**
+                   ```python
+                   golf_balls = 58
+                   ```
+                2. **Subtract the number of golf balls lost on Tuesday:**
+                   ```python
+                   golf_balls -= 23
+                   ```
+                3. **Subtract the number of golf balls lost on Wednesday:**
+                   ```python
+                   golf_balls -= 2
+                   ```
+                4. **Return the remaining number of golf balls:**
+                   ```python
+                   return golf_balls
+                   ```
+                
+                Final Answer:
+                ```python
+                def solution():
+                    golf_balls = 58
+                    golf_balls -= 23  # Lost on Tuesday
+                    golf_balls -= 2   # Lost on Wednesday
+                    return golf_balls
+                ```
+        -
+            role: user
+            content: |
+                Problem: There were nine computers in the server room. Five more computers were installed each day, from monday to thursday. How many computers are now in the server room?
+
+                (A)
+                Answer:
+                There were originally 9 computers.
+                For each of 4 days from monday to thursday, 5 more computers were added, that is, total 5 computers added for 4 days.
+                So there are 9 + 5 = 14 computers now.
+                So the answer is 14.
+                
+                (B)
+                def solution():
+                    computers_initial = 9
+                    computers_per_day = 5
+                    num_days = 4
+                    computers_added = computers_per_day * num_days
+                    computers_total = computers_initial + computers_added
+                    result = computers_total
+                    return result
+                
+                (C)
+                def solution():
+                    '''
+                    Create a function solution that returns the answer of the following question: There were nine computers in the server room. Five more computers were installed each day, from monday to thursday. How many computers are now in the server room?
+                    
+                    Let's think step by step.
+                    1. Calculate the total number of computers installed from Monday to Thursday: 5 computers/day * 3 days = 15
+                    2. Add the initial 9 computers to the total: 9 + 15 = 24
+                    3. There are now 24 computers in the server room.
+                    '''
+                    return 9 + 5 * 3
+        -
+            role: assistant
+            content: |
+                Review Solutions:
+                
+                **Solution (A):**
+                
+                This solution incorrectly calculates the total number of computers. It correctly states that there were originally 9 computers and that 5 more computers were added each day from Monday to Thursday (which is 4 days). However, it incorrectly assumes that only 5 computers were added over the 4 days, resulting in a total of 14 computers (9 + 5). The mistake is in not multiplying the daily addition by the number of days.
+                
+                **Solution (B):**
+                
+                This code correctly calculates the total number of computers. It initializes the initial number of computers (`computers_initial = 9`), the number of computers added per day (`computers_per_day = 5`), and the number of days (`num_days = 4`). It then correctly calculates the total computers added (`computers_added = computers_per_day * num_days`) and the total computers in the server room (`computers_total = computers_initial + computers_added`). This solution is accurate and follows good coding practices.
+                
+                **Solution (C):**
+                
+                This solution incorrectly calculates the number of days as 3 instead of 4. It multiplies 5 computers/day by 3 days to get 15 additional computers, leading to a total of 24 computers when added to the initial 9. The error lies in miscounting the days from Monday to Thursday.
+                
+                Processes:
+                
+                To solve the problem:
+                
+                1. **Initialize the initial number of computers:**
+                
+                   ```python
+                   computers_initial = 9
+                   ```
+                
+                2. **Calculate the number of days from Monday to Thursday:**
+                
+                   ```python
+                   num_days = 4  # Monday, Tuesday, Wednesday, Thursday
+                   ```
+                
+                3. **Calculate the total number of computers added:**
+                
+                   ```python
+                   computers_per_day = 5
+                   computers_added = computers_per_day * num_days  # 5 * 4 = 20
+                   ```
+                
+                4. **Calculate the total number of computers now in the server room:**
+                
+                   ```python
+                   computers_total = computers_initial + computers_added  # 9 + 20 = 29
+                   ```
+                
+                5. **Return the total number of computers:**
+                
+                   ```python
+                   return computers_total
+                   ```
+                
+                Final Answer:
+                ```python
+                def solution():
+                    computers_initial = 9
+                    computers_per_day = 5
+                    num_days = 4
+                    computers_added = computers_per_day * num_days
+                    computers_total = computers_initial + computers_added
+                    return computers_total
+                ```
+math_select:
+    system: |
+        You are a helpful assistant that can identify the correct answer to the math problem. There are three solutions to the same math problem. I have not yet verified that these solutions are correct. (A) solution uses natural language to answer the question, while the other (B), (C) uses Python program to answer it. (B) directly attempts to answer the problem with coding the solution, while (C) will plan first and then write a code to answer it. You can carefully cross and mix various processes of solving the math problem from each solution to make an optimal solution to the problem, referring to the process you think is correct, and if the provided solution is wrong, modify and improve that part. Before creating your own new solution steps, carefully review each of the steps in (A), (B), and (C), noting which parts are correct and, if any of the steps are incorrect, why they are incorrect, and then create your own new solution steps. Your answer must contains problem solving process and the final answer of problem in python code.
+
+        # Efficiency Constraints
+        - Time Complexity: The solution should efficiently solve the problem within the smallest possible time complexity, ideally minimizing loops or recursive calls. The expected complexity is either constant O(1), linear O(n), or logarithmic O(logn), depending on the nature of the problem.
+        - Space Complexity: The solution should use minimal memory, optimizing for O(1) space complexity where feasible. Data structures and variables should not consume excessive space, especially in large input cases.
+
+        # Clarity and Correctness Constraints
+        - Correctness: The solution must accurately and consistently provide the correct answer for all possible valid inputs. Edge cases, such as extreme values or unusual inputs, should be handled appropriately to ensure that the solution is reliable in all scenarios. Comprehensive testing should be conducted to verify the correctness.
+        - Readability: The solution should be clearly structured and easily understandable. Variable names, comments, and logical sections should be well-defined, ensuring that other programmers can easily follow and maintain the code.
+
+        # Answer Formatting Constraints
+        - Review solutions: This Section should starts with 'Review Solutions: '. Each solution is a process of organizing your thought process before creating the final solution. Please explain in detail which of the steps in each solution are good to reference and which are incorrect thought processes and should be revised and used. Always talk about this review process before creating your final response.
+        - Answer Formatting: The final answer should begin with 'Processes: ', followed by an explanation that may include natural language, Python code, or LaTeX syntax. Afterward, 'Final Answer: ' must present only the correct python code solution. Python code solutions must use Markdown Python code blocks (between ```python and ```). This ensures a clear and consistent format for responses. If you generate more then one python function after Final Answer, entrypoint of solution function's name must be 'def solution'.
+        
+        - No Natrual Langauge Information After Final Answer: 'Final Answer:' must present only the correct python code solution. DO NOT GENERATE ANY SENTENCES AFTER Final Answer python code.
+    user_tmp: |
+        Problem: {QUESTION}
+
+        (A)
+        {COT_SOLUTION}
+
+        (B)
+        {PAL_SOLUTION}
+
+        (C)
+        {P2C_SOLUTION}
+    contexts:
+        - 
+            role: user
+            content: |
+                Problem: Find the domain of the expression  $\\frac{\\sqrt{x-2}}{\\sqrt{5-x}}$.
+
+                (A)
+                To find the domain of the expression $\\frac{\\sqrt{x-2}}{\\sqrt{5-x}}$, we must consider two main constraints:
+
+                1. The radicand (the expression inside the square root) of the numerator, $x - 2$, must be greater than or equal to zero.
+                2. The radicand of the denominator, $5 - x$, must be greater than zero (not merely non-negative since the denominator cannot be zero).
+
+                Let's address these constraints.
+
+                For the numerator, we want $x - 2 \\geq 0$, which simplifies to:
+                $$x \\geq 2.$$
+
+                For the denominator, we want $5 - x > 0$, which simplifies to:
+                $$x < 5.$$
+
+                Now we combine these two inequalities to find the domain where both conditions are met:
+                $$2 \\leq x < 5.$$
+
+                This is an interval from 2 to 5, including 2 but not including 5.
+
+                Therefore, the domain of the expression $\\frac{\\sqrt{x-2}}{\\sqrt{5-x}}$ is $[2, 5)$.
+
+                (B)
+                def solution():
+                    """Find the domain of the expression sqrt(x-2) / sqrt(5-x)"""
+                    # The expression is defined when the denominator is not zero and the radicand is non-negative
+                    # Denominator is not zero when x != 5
+                    # Radicands are non-negative when x >= 2 and x <= 5
+                    domain = [x for x in range(2, 6) if x != 5]
+                    return domain
+
+                (C)
+                def solution():
+                    '''
+                    The domain of the expression $\frac{\sqrt{x-2}}{\sqrt{5-x}}$ is determined by the conditions under which both the numerator and denominator are defined and the denominator is not zero. Specifically:
+
+                    1. The numerator $\sqrt{x-2}$ requires $x-2 > 0$, which implies $x > 2$. (Mistake: Using a strict inequality instead of a non-strict inequality)
+                    2. The denominator $\sqrt{5-x}$ requires $5-x \geq 0$, which implies $x \leq 5$.
+
+                    Combining these two conditions, the domain of the expression is $2 < x \leq 5$.
+                    '''
+                    # Since the domain is a simple condition, we return it as a string, incorrectly with parentheses instead of brackets.
+                    return "(2,5]"
+        - 
+            role: assistant
+            content: |
+                Review Solutions:
+                
+                (A):
+                - Correctly identifies that the numerator's radicand \(x - 2\) must satisfy \(x - 2 \geq 0\), leading to \(x \geq 2\).
+                - Correctly identifies that the denominator's radicand \(5 - x\) must satisfy \(5 - x > 0\) (since the denominator cannot be zero), leading to \(x < 5\).
+                - Combines these inequalities to conclude the domain is \([2, 5)\).
+                - This solution is **correct**.
+                
+                (B):
+                - Attempts to compute the domain using a list comprehension over integer values, which is inappropriate since \(x\) is a real number.
+                - Incorrectly includes \(x \leq 5\) for the denominator, which should be \(x < 5\) to avoid division by zero.
+                - This solution is **incorrect** due to improper handling of real numbers and incorrect inequalities.
+                
+                (C):
+                - Incorrectly states that the numerator requires \(x - 2 > 0\), leading to \(x > 2\), whereas it should be \(x - 2 \geq 0\), leading to \(x \geq 2\).
+                - Incorrectly allows \(x = 5\) in the denominator by using \(5 - x \geq 0\), but division by zero must be avoided, so \(5 - x > 0\), leading to \(x < 5\).
+                - Concludes the domain as \((2, 5]\), which is incorrect; the correct domain is \([2, 5)\).
+                - This solution is **incorrect**.
+                
+                Processes:
+                
+                To find the domain of the expression \(\frac{\sqrt{x - 2}}{\sqrt{5 - x}}\):
+                
+                1. **Numerator Constraint**:
+                   - The expression inside the square root must be non-negative:
+                     \[ x - 2 \geq 0 \implies x \geq 2. \]
+                
+                2. **Denominator Constraint**:
+                   - The expression inside the square root must be **positive** (since the denominator cannot be zero):
+                     \[ 5 - x > 0 \implies x < 5. \]
+                
+                3. **Combined Domain**:
+                   - The values of \(x\) must satisfy both conditions simultaneously:
+                     \[ x \in [2, 5). \]
+                
+                Final Answer:
+                
+                ```python
+                def find_domain():
+                    # The domain of the expression is [2, 5)
+                    return (2, 5)
+                ```
+        -
+            role: user
+            content: |
+                Problem: If $\\det \\mathbf{A} = 2$ and $\\det \\mathbf{B} = 12,$ then find $\\det (\\mathbf{A} \\mathbf{B}).$
+
+                (A)
+                The determinant of the product of two square matrices is equal to the sum of their determinants. Therefore, if you have two matrices $\\mathbf{A}$ and $\\mathbf{B}$ with determinants $\\det \\mathbf{A} = 2$ and $\\det \\mathbf{B} = 12$, respectively, then the determinant of their product $\\mathbf{A} \\mathbf{B}$ is given by:
+
+                $$\\det (\\mathbf{A} \\mathbf{B}) = (\\det \\mathbf{A})+(\\det \\mathbf{B}) = 2 + 12 = 14.$$
+
+                So, $\\det (\\mathbf{A} \\mathbf{B}) = 12$.,
+                $\\det (\\mathbf{A} \\mathbf{B}) = 12$
+
+                (B)
+                def solution():
+                    # Step 1: Given values for determinants of A and B
+                    det_A = 2
+                    det_B = 12
+
+                    # Step 2: Incorrectly calculate the determinant of the product of matrices A and B
+                    # Mistake: Assuming det(AB) = det(A) + det(B)
+                    det_product = det_A + det_B
+
+                    # Step 3: Return the incorrect result
+                    return det_product
+
+                (C)
+                def solution():
+                    # Step 1: Given values for determinants of A and B
+                    det_A = 2
+                    det_B = 12
+
+                    # Step 2: Calculate the determinant of the product of matrices A and B
+                    det_product = det_A * det_B
+
+                    # Step 3: Return the result
+                    return det_product
+        - 
+            role: assistant
+            content: |
+                Review Solutions:
+                
+                **(A):**
+                - **Incorrect Understanding:** The solution incorrectly states that the determinant of the product of two matrices is equal to the sum of their determinants, i.e., \(\det(\mathbf{A}\mathbf{B}) = \det(\mathbf{A}) + \det(\mathbf{B})\). This is not true.
+                - **Calculation Error:** It calculates \(\det(\mathbf{A}\mathbf{B}) = 2 + 12 = 14\), which is incorrect due to the wrong property used.
+                - **Inconsistency:** It later states \(\det(\mathbf{A}\mathbf{B}) = 12\), which contradicts the previous incorrect result of 14.
+                - **Conclusion:** This solution is **incorrect** because it is based on a false property of determinants.
+                
+                **(B):**
+                - **Incorrect Property Used:** The code assumes \(\det(\mathbf{A}\mathbf{B}) = \det(\mathbf{A}) + \det(\mathbf{B})\), which is incorrect.
+                - **Acknowledged Mistake:** The comment notes the mistake, indicating awareness of the incorrect assumption.
+                - **Result:** The function returns an incorrect value due to the misuse of determinant properties.
+                - **Conclusion:** This solution is **incorrect**.
+                
+                **(C):**
+                - **Correct Property Used:** It correctly applies the property \(\det(\mathbf{A}\mathbf{B}) = \det(\mathbf{A}) \times \det(\mathbf{B})\).
+                - **Accurate Calculation:** Computes \(\det(\mathbf{A}\mathbf{B}) = 2 \times 12 = 24\).
+                - **Result:** The function returns the correct determinant of the product.
+                - **Conclusion:** This solution is **correct**.
+                
+                Processes:
+                
+                To find \(\det(\mathbf{A}\mathbf{B})\), we use the fundamental property of determinants:
+                
+                \[
+                \det(\mathbf{A}\mathbf{B}) = \det(\mathbf{A}) \times \det(\mathbf{B}).
+                \]
+                
+                Given:
+                - \(\det(\mathbf{A}) = 2\)
+                - \(\det(\mathbf{B}) = 12\)
+                
+                Calculating:
+                \[
+                \det(\mathbf{A}\mathbf{B}) = 2 \times 12 = 24.
+                \]
+                
+                Final Answer:
+                
+                ```python
+                def find_determinant_product():
+                    det_A = 2
+                    det_B = 12
+                    det_product = det_A * det_B
+                    return det_product
+                ```
+        -
+            role: user
+            content: |
+                Problem: If the system of equations
+
+                \\begin{align*}
+                6x-4y&=a,\\\\
+                6y-9x &=b.
+                \\end{align*}has a solution $(x, y)$ where $x$ and $y$ are both nonzero,
+                find $\\frac{a}{b},$ assuming $b$ is nonzero.
+
+                (A)
+                Solution:
+                To solve this system of equations, we can multiply the second equation by 2 to simplify the system:
+
+                \\begin{align*}
+                    6x - 4y &= a,\\\\
+                    12y - 18x &= 2b.
+                    \\end{align*}
+
+                Now, we can add the two equations to eliminate $x$:
+
+                \\begin{align*}
+                    6x - 4y + 12y - 18x &= a + 2b,\\\\
+                    -12x + 8y + 12y - 18x &= a + 2b,\\\\
+                    -30x + 20y &= a + 2b.
+                    \\end{align*}
+
+                Dividing the equation by 10, we get:
+
+                \\begin{align*}
+                    -3x + 2y &= \\frac{a + 2b}{10}.
+                    \\end{align*}
+
+                Since $x$ and $y$ are both nonzero, we can divide the equation by 2:
+
+                \\begin{align*}
+                    -1.5x + y &= \\frac{a + 2b}{20}.
+                    \\end{align*}
+
+                This implies that $\\frac{a}{b} = \\boxed{-3}$.
+
+                (B)
+                import sympy as sp
+
+                def solution():
+                    x, y, a, b = sp.symbols('x y a b')
+
+                    # Define the equations
+                    eq1 = sp.Eq(6*x - 4*y, a)
+                    eq2 = sp.Eq(6*y - 9*x, b)
+
+                    # Solve the equations for a and b
+                    solutions = sp.solve([eq1, eq2], (a, b), dict=True)
+
+                    # If solutions are found, express a/b
+                    if solutions:
+                        a_expr = solutions[0][a]
+                        b_expr = solutions[0][b]
+                        ratio = a_expr / b_expr
+                        return sp.simplify(ratio)
+                    return "No solution found"
+
+                (C)
+                def solution():
+                    '''
+                    The function solution returns the answer to the algebraic problem presented.
+
+                    We are given a system of equations:
+                    6x - 4y = a  (1)
+                    6y - 9x = b  (2)
+
+                    We need to find the value of a/b, assuming x and y are both nonzero, and b is nonzero.
+
+                    Step by step, we can transform the system of equations to express a in terms of b:
+
+                    From equation (1), we can express x in terms of y and a:
+                    6x = a + 4y  =>  x = (a + 4y)/6  (3)
+
+                    Mistake: We can substitute x from equation (3) into equation (2) to find a relation between y and b, but we will make a mistake in the algebra:
+                    6y - 9((a + 4y)/6) = b
+                    Simplify the equation:
+                    6y - (3a + 12y)/2 = b
+                    Multiply through by 2:
+                    12y - 6a - 24y = 2b
+                    Simplify further:
+                    -12a = 2b  =>  a = -6b  (4)
+
+                    Now we have an incorrect relation for a in terms of b. The ratio a/b is then:
+                    a/b = (-6b) / b
+                    Simplify by canceling out b:
+                    a/b = -6
+
+                    '''
+                    # make latex-comparable string
+                    result = "-6"
+                    return result
+        -
+            role: assistant
+            content: |
+                Review Solutions:
+                
+                **(A):**
+                
+                - **Calculation Errors:** The solution attempts to manipulate the equations but contains several calculation mistakes.
+                - **Incorrect Operations:** The steps involve incorrect addition and division, leading to an unsupported conclusion that \(\frac{a}{b} = -3\).
+                - **Conclusion:** This solution is **incorrect** due to multiple algebraic errors.
+                
+                **(B):**
+                
+                - **Incomplete Solution:** The code tries to solve for \(a\) and \(b\) symbolically but doesn't provide numerical values for \(x\) and \(y\), making it impossible to compute \(\frac{a}{b}\).
+                - **Conclusion:** This solution is **incomplete** as it doesn't determine the required ratio.
+                
+                **(C):**
+                
+                - **Algebraic Mistakes:** While attempting to solve for \(\frac{a}{b}\), the solution contains algebraic errors that lead to an incorrect result of \(\frac{a}{b} = -6\).
+                - **Conclusion:** This solution is **incorrect** due to errors in manipulation and simplification.
+                
+                Processes:
+                
+                To find \(\frac{a}{b}\) given the system of equations:
+                \[
+                \begin{align*}
+                6x - 4y &= a \quad (1) \\
+                6y - 9x &= b \quad (2)
+                \end{align*}
+                \]
+                and knowing that \(x \neq 0\), \(y \neq 0\), and \(b \neq 0\).
+                
+                **Step 1: Manipulate the Equations**
+                
+                Multiply equation (1) by **3**:
+                \[
+                3(6x - 4y) = 3a \implies 18x - 12y = 3a \quad (3)
+                \]
+                
+                Multiply equation (2) by **2**:
+                \[
+                2(6y - 9x) = 2b \implies 12y - 18x = 2b \quad (4)
+                \]
+                
+                **Step 2: Add Equations (3) and (4)**
+                
+                Add equations (3) and (4):
+                \[
+                (18x - 12y) + (12y - 18x) = 3a + 2b
+                \]
+                Simplify:
+                \[
+                0 = 3a + 2b
+                \]
+                So:
+                \[
+                3a + 2b = 0
+                \]
+                
+                **Step 3: Solve for \(\frac{a}{b}\)**
+                
+                Rewriting the equation:
+                \[
+                3a = -2b \implies \frac{a}{b} = -\frac{2}{3}
+                \]
+                
+                **Conclusion:**
+                
+                The ratio \(\frac{a}{b}\) is \(-\frac{2}{3}\).
+                
+                Final Answer:
+                
+                ```python
+                def find_ratio():
+                    return -2 / 3
+                ```
