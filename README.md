@@ -11,8 +11,16 @@ score file: [link](https://github.com/strutive07/Cross-Strategy/blob/main/src/sc
 # please modify OPENAI_API_BASE, OPENAI_API_KEY in this script and run script.
 
 cd src
-OPENAI_API_BASE=... OPENAI_API_KEY=.... sh scripts run_all_scripts.sh $MODEL_NAME
+OPENAI_API_BASE=... OPENAI_API_KEY=.... bash scripts/run_all_scripts.sh $MODEL_NAME
 ```
+
+### Gemini examples
+
+```bash
+cd src
+PENAI_API_BASE=https://generativelanguage.googleapis.com/v1beta/ OPENAI_API_KEY=... bash scripts/run_all_scripts.sh gemini-1.5-flash
+```
+
 
 
 ### Run each step manualy
@@ -32,9 +40,7 @@ sh scripts/0_run_indiv.sh $MODEL_NAME
 sh scripts/1_run_postprocess_indiv.sh $MODEL_NAME
 sh scripts/2_score_indiv.sh $MODEL_NAME
 sh scripts/3_run_cross_and_mix.sh $MODEL_NAME
-sh scripts/3_run_cross_and_mix_with_selection.sh $MODEL_NAME
 sh scripts/3_run_sg.sh $MODEL_NAME
-sh scripts/4_postprocess_and_score_cross_and_mix_with_selection.sh $MODEL_NAME
 sh scripts/4_postprocess_and_score_cross_and_mix.sh $MODEL_NAME
 sh scripts/4_postprocess_and_score_sg.sh $MODEL_NAME
 python print_score.py
