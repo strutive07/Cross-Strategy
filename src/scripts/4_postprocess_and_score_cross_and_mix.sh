@@ -17,35 +17,3 @@ run_process()
 run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix"
 run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix"
 run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix"
-
-# run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix"
-# run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_cot_pal"
-# run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_cot_p2c"
-# run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_p2c_pal"
-
-# run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_with_pred"
-# run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_cot_pal_with_pred"
-# run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_cot_p2c_with_pred"
-# run_process "gsm" "outputs/gsm8K_test_dt.gsm/$MODEL" "cross_and_mix_p2c_pal_with_pred"
-
-
-# run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix"
-# run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_cot_pal"
-# run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_cot_p2c"
-# run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_p2c_pal"
-
-# run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_with_pred"
-# run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_cot_pal_with_pred"
-# run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_cot_p2c_with_pred"
-# run_process "math" "outputs/MATH-full_dt.math/$MODEL" "cross_and_mix_p2c_pal_with_pred"
-
-
-# run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix"
-# run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_cot_pal"
-# run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_cot_p2c"
-# run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_p2c_pal"
-
-# run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_with_pred"
-# run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_cot_pal_with_pred"
-# run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_cot_p2c_with_pred"
-# run_process "svamp" "outputs/SVAMP_dt.svamp/$MODEL" "cross_and_mix_p2c_pal_with_pred"
