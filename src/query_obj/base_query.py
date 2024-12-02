@@ -4,7 +4,6 @@ from typing import Literal
 from openai import AsyncOpenAI, OpenAI
 
 base_url = os.environ.get("OPENAI_API_BASE", "http://localhost:8000/v1")
-base_url = "https://api.openai.com/v1"
 api_key = os.environ.get("OPENAI_API_KEY", "no_need")
 timeout = int(os.environ.get("OPENAI_TIMEOUT", 120))
 max_retries = int(os.environ.get("OPENAI_MAX_RETRY", 4))
@@ -85,6 +84,9 @@ class BaseQueryObject:
         if chat_params["model"] in ("gemma-2-9b-it", ) and chat_params["messages"][0]["role"] == "system":
             chat_params["messages"][1]["content"] = chat_params["messages"][0]["content"] + '\n' + chat_params["messages"][1]["content"]
             chat_params["messages"].pop(0)
+        elif 'gemini' in chat_params["model"]:
+            if "seed" in chat_params:
+                del chat_params["seed"]
 
         res = await async_client.chat.completions.create(**chat_params)
         return res
