@@ -18,7 +18,7 @@ OPENAI_API_BASE=... OPENAI_API_KEY=.... bash scripts/run_all_scripts.sh $MODEL_N
 
 ```bash
 cd src
-PENAI_API_BASE=https://generativelanguage.googleapis.com/v1beta/ OPENAI_API_KEY=... bash scripts/run_all_scripts.sh gemini-1.5-flash
+OPENAI_API_BASE=https://generativelanguage.googleapis.com/v1beta/ OPENAI_API_KEY=... bash scripts/run_all_scripts.sh gemini-1.5-flash
 ```
 
 
