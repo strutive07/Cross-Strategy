@@ -239,7 +239,7 @@ def extract_ans_from_cot_MATHnOCW(solution: str) -> str:
     ]
     
     last_solution = None
-    for keyword, is_prefix in list(zip(prefix_list, [True] * len(prefix_list))) + [(". I hope it is correct.",), False]:
+    for keyword, is_prefix in list(zip(prefix_list, [True] * len(prefix_list))) + [(". I hope it is correct.", False)]:
         
         if is_prefix:
             solution = solution.split(keyword)[-1].strip()

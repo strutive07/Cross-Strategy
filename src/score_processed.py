@@ -18,12 +18,16 @@ tqdm.pandas()
 def eval_gsm_svamp(
     df, return_flag: bool = False, submission_col_already_exists: bool = False
 ):
+    print(df.submission)
     if not submission_col_already_exists:
         df["submission"] = df.majority_ans
     df.submission = df.submission.astype("str")
     equiv_flag = df.progress_apply(
         lambda row: gsm_check_answer(row.submission, row.answer), axis=1
     )
+    print(df.submission)
+    print(df.answer)
+    print(equiv_flag)
     if return_flag:
         return equiv_flag
     else:
@@ -217,9 +221,10 @@ def score_sg(
 
         # need to specify which to submit
         mask_sel = df.need_selection.apply(lambda x: True)
+        print(df.sg_answer)
         df_sel = df[mask_sel]
         df_maj = df[~mask_sel]
-        df_sel["submission"] = df_sel.sg_answer.apply(aggf)
+        df_sel["submission"] = df_sel.sg_answer.apply(lambda x: x[0] if len(x) else None)
         df_maj["submission"] = df_maj.majvote_answers.apply(aggf)
 
         sel_corrects = eval_f(
