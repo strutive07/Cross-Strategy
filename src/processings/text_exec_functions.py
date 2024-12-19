@@ -295,7 +295,7 @@ def get_concordant_answer(
     if dataset_type in ["svamp", "gsm"]:
         answers_no_none = [_convert_to_float_if_possible(a) for a in answers_no_none]
         answers_no_none = [
-            a for a in answers_no_none if isinstance(a, Union[float, int])
+            a for a in answers_no_none if isinstance(a, (float, int))
         ]
         if len(answers_no_none) == 0:
             res = None
